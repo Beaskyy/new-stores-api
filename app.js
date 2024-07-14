@@ -8,7 +8,8 @@ const notFoundMiddleware = require("./middleware/not-found");
 const errorMiddleware = require("./middleware/error-handler");
 const connectDB = require("./db/connect");
 
-// const productsRouter = require("./routes/products");
+
+const productsRouter = require("./routes/products");
 
 // middleware
 app.use(express.json());
@@ -22,14 +23,14 @@ app.get("/", (req, res) => {
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);
 
-// app.use("/api/v1/products", productsRouter);
+app.use("/api/v1/products", productsRouter);
 
 const port = process.env.PORT || 3000;
 
 const start = async () => {
   try {
     // connect DB
-    await connectDB(process.env.MONGO_URI)
+    await connectDB(process.env.MONGO_URI);
     app.listen(port, console.log(`Server is listening on ${port}...`));
   } catch (error) {
     console.log(error);
